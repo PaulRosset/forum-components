@@ -6505,7 +6505,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -7029,6 +7029,13 @@ regjsparser@^0.1.4:
   resolved "https://registry.yarnpkg.com/regjsparser/-/regjsparser-0.1.5.tgz#7ee8f84dc6fa792d3fd0ae228d24bd949ead205c"
   dependencies:
     jsesc "~0.5.0"
+
+rehover@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/rehover/-/rehover-0.2.2.tgz#6309c73d18551ba2fec2a3d590e6c8ea09cb860c"
+  dependencies:
+    prop-types "^15.6.1"
+    react "^16.2.0"
 
 relateurl@0.2.x:
   version "0.2.7"

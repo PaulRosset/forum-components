@@ -2,6 +2,7 @@ import React, { Fragment, PureComponent } from "react";
 import styled from "styled-components";
 import { Icon } from "semantic-ui-react";
 import { Motion, spring } from "react-motion";
+import Rehover from "rehover";
 
 const ContainerSidebar = styled.div`
   float: left;
@@ -31,31 +32,19 @@ const ToolBar = styled.div`
   }
 `;
 
-function Tools({ onMouseLeaveMenu, onMouseEnterMenu, openMenu }) {
+function Tools({ x, y }) {
   return (
-    <Motion
-      defaultStyle={{ x: -25, y: 0 }}
-      style={{ x: spring(openMenu ? 0 : -25), y: spring(openMenu ? 1 : 0) }}
-    >
-      {({ x, y }) => (
-        <ToolBar
-          onMouseLeave={onMouseLeaveMenu}
-          onMouseEnter={onMouseEnterMenu}
-          x={x}
-          y={y}
-        >
-          <a href="#">
-            <Icon name="plus" link color="red" circular />
-          </a>
-          <a href="#">
-            <Icon name="sort" link color="blue" circular />
-          </a>
-          <a href="">
-            <Icon name="star" link color="green" circular />
-          </a>
-        </ToolBar>
-      )}
-    </Motion>
+    <ToolBar x={x} y={y}>
+      <a href="#">
+        <Icon name="plus" link color="red" circular />
+      </a>
+      <a href="#">
+        <Icon name="sort" link color="blue" circular />
+      </a>
+      <a href="">
+        <Icon name="star" link color="green" circular />
+      </a>
+    </ToolBar>
   );
 }
 
@@ -63,59 +52,45 @@ class SideBarTools extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      onHoverButton: false,
-      onHoverTools: false,
-      openMenu: false
+      isOpen: false
     };
   }
 
-  MenuButtonEnter = () => {
+  getStates = states => {
     this.setState({
-      onHoverButton: true,
-      openMenu: true
+      ...states
     });
-  };
-
-  MenuButtonClose = () => {
-    setTimeout(() => {
-      this.setState(prevState => ({
-        onHoverButton: false,
-        openMenu: !prevState.onHoverTools ? false : true
-      }));
-    }, 50);
-  };
-
-  MenuToolsEnter = () => {
-    this.setState({
-      onHoverTools: true,
-      openMenu: open
-    });
-  };
-
-  MenuToolsClose = () => {
-    this.setState(prevState => ({
-      onHoverTools: false,
-      openMenu: !prevState.onHoverButton ? false : true
-    }));
   };
 
   render() {
     return (
       <ContainerSidebar>
-        <Tool
-          onMouseEnter={this.MenuButtonEnter}
-          onMouseLeave={this.MenuButtonClose}
-          href="#"
+        <Motion
+          defaultStyle={{ x: -25, y: 0 }}
+          style={{
+            x: spring(this.state.isOpen ? 0 : -25),
+            y: spring(this.state.isOpen ? 1 : 0)
+          }}
         >
-          Tools
-        </Tool>
-        {this.state.onHoverButton || this.state.onHoverTools ? (
-          <Tools
-            onMouseEnterMenu={this.MenuToolsEnter}
-            onMouseLeaveMenu={this.MenuToolsClose}
-            openMenu={this.state.openMenu}
-          />
-        ) : null}
+          {props => (
+            <Rehover delay={150} states={this.getStates}>
+              <Tool source href="#">
+                Tools
+              </Tool>
+              <ToolBar destination {...props}>
+                <a href="#">
+                  <Icon name="plus" link color="red" circular />
+                </a>
+                <a href="#">
+                  <Icon name="sort" link color="blue" circular />
+                </a>
+                <a href="">
+                  <Icon name="star" link color="green" circular />
+                </a>
+              </ToolBar>
+            </Rehover>
+          )}
+        </Motion>
       </ContainerSidebar>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Icon, Label } from "semantic-ui-react";
+import Rehover from "rehover";
 
 const Image = styled.img`
   height: 4rem;
@@ -70,29 +71,13 @@ const TabUserLast = styled(TabUser)`
 class Header extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      visible: false
-    };
+    this.state = {};
   }
-
-  handleEnter = e => {
-    this.setState({
-      visible: true
-    });
-  };
-
-  handleLeave = e => {
-    setTimeout(() => {
-      this.setState({
-        visible: false
-      });
-    }, 300);
-  };
 
   render() {
     return (
       <Nav>
-        <Image src="http://via.placeholder.com/50x50" />
+        <Image src="/static/img/edubot-logo-brand.png" />
         <Tab href="#" area="home">
           Home
         </Tab>
@@ -110,24 +95,21 @@ class Header extends React.PureComponent {
           }}
         >
           <Icon name="bell" link size="large" />
-          {this.props.notification ? (
+          {this.props.notifications ? (
             <NotificationsCounter>
-              {this.props.notification.length}
+              {this.props.notifications.length}
             </NotificationsCounter>
           ) : null}
         </div>
         <div style={{ gridArea: "profile" }}>
-          <Profil
-            src="http://via.placeholder.com/50x50"
-            onMouseEnter={this.handleEnter}
-          />
-          {this.state.visible ? (
-            <MenuUser onMouseLeave={this.handleLeave}>
+          <Rehover delay={150}>
+            <Profil src="http://via.placeholder.com/50x50" source="true" />
+            <MenuUser destination="false">
               <TabUser href="#">Edubot</TabUser>
               <TabUser href="#">Support</TabUser>
               <TabUserLast href="#">Log out</TabUserLast>
             </MenuUser>
-          ) : null}
+          </Rehover>
         </div>
       </Nav>
     );

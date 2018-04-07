@@ -11,25 +11,30 @@ const ContainerSidebar = styled.div`
   flex-direction: column;
 `;
 
-const Tool = styled.div`
+const Tool = styled.button`
   padding: 10px;
-  transform-origin: 0;
   background: orange;
   color: white;
   border-radius: 5px;
-  text-align: center;
   cursor: pointer;
 `;
 
 const ToolBar = styled.div`
   text-align: center;
   padding-top: 10px;
-  transform: ${props => `translateY(${props.x}px)`};
-  opacity: ${props => props.y};
 
   & a {
     margin-right: 5px;
   }
+`;
+
+const ContainerFilter = styled.div`
+  margin-top: 20px;
+`;
+
+const Filter = styled.div`
+  margin: 15px 0;
+  cursor: pointer;
 `;
 
 function Tools({ x, y }) {
@@ -65,32 +70,31 @@ class SideBarTools extends PureComponent {
   render() {
     return (
       <ContainerSidebar>
-        <Motion
-          defaultStyle={{ x: -25, y: 0 }}
-          style={{
-            x: spring(this.state.isOpen ? 0 : -25),
-            y: spring(this.state.isOpen ? 1 : 0)
-          }}
-        >
-          {props => (
-            <Rehover delay={150} states={this.getStates}>
-              <Tool source href="#">
-                Tools
-              </Tool>
-              <ToolBar destination {...props}>
-                <a href="#">
-                  <Icon name="plus" link color="red" circular />
-                </a>
-                <a href="#">
-                  <Icon name="sort" link color="blue" circular />
-                </a>
-                <a href="">
-                  <Icon name="star" link color="green" circular />
-                </a>
-              </ToolBar>
-            </Rehover>
-          )}
-        </Motion>
+        <Rehover delay={150} states={this.getStates}>
+          <Tool source="true">Tools</Tool>
+          <ToolBar destination="true">
+            <a href="#">
+              <Icon name="plus" link color="red" circular />
+            </a>
+            <a href="#">
+              <Icon name="sort" link color="blue" circular />
+            </a>
+            <a href="">
+              <Icon name="star" link color="green" circular />
+            </a>
+          </ToolBar>
+        </Rehover>
+        <ContainerFilter>
+          <Filter>
+            <Icon name="discussions" /> All discussions
+          </Filter>
+          <Filter>
+            <Icon name="star" /> Following
+          </Filter>
+          <Filter>
+            <Icon name="tags" /> Tags
+          </Filter>
+        </ContainerFilter>
       </ContainerSidebar>
     );
   }

@@ -8,6 +8,7 @@ import { Button, Welcome } from "@storybook/react/demo";
 
 import Header from "./../components/Header";
 import Sidebar from "./../components/Sidebar";
+import ContainerPost from "./../components/Post";
 
 storiesOf("Welcome", module).add("to Storybook", () => (
   <Welcome showApp={linkTo("Button")} />
@@ -28,3 +29,5 @@ storiesOf("Header", module)
   ));
 
 storiesOf("Sidebar", module).add("Simple sidebar", () => <Sidebar />);
+
+storiesOf("Posts", module).add("Simple Posts showed", () => <ContainerPost />);
